@@ -155,6 +155,16 @@ Custom property | Description | Default
           value: ''
         },
 
+        xOffset: {
+          type: Number,
+          value: 0
+        },
+
+        yOffset: {
+          type: Number,
+          value: 0
+        },        
+
         _boundNotifyResize: {
           type: Function,
           value: function() {
@@ -239,13 +249,18 @@ Custom property | Description | Default
           return;
         }
 
+        var xOffset = parseInt(this.xOffset);
+        xOffset = isNaN(xOffset) ? 0 : xOffset;
+        var yOffset = parseInt(this.yOffset);
+        yOffset = isNaN(yOffset) ? 0 : yOffset;
+
         var parentRect = this.offsetParent.getBoundingClientRect();
         var targetRect = this._target.getBoundingClientRect();
         var thisRect = this.getBoundingClientRect();
 
-        this.style.left = targetRect.left - parentRect.left +
+        this.style.left = xOffset + targetRect.left - parentRect.left +
             (targetRect.width - thisRect.width / 2) + 'px';
-        this.style.top = targetRect.top - parentRect.top -
+        this.style.top = yOffset + targetRect.top - parentRect.top -
             (thisRect.height / 2) + 'px';
       }
     })

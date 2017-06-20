@@ -59,6 +59,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </demo-snippet>
 
+    <h3>Badges can be offset horizontally and vertically</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <paper-icon-button id="number3" icon="communication:email" alt="inbox">
+        </paper-icon-button>
+        <at-carbon-badge for="number3" label="4" x-offset="20" y-offset="20">
+        </at-carbon-badge>
+
+        <paper-icon-button id="icon3" icon="account-box" alt="person">
+        </paper-icon-button>
+        <at-carbon-badge icon="social:mood" for="icon3" label="happy" x-offset="-20" y-offset="-20">
+        </at-carbon-badge>
+      </template>
+    </demo-snippet>
+
     <h3>Badges can be applied to direct siblings</h3>
     <demo-snippet class="centered-demo">
       <template>
