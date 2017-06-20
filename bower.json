@@ -1,0 +1,13 @@
+{
+  "name": "at-carbon-button",
+  "version": "1.0.0.0",
+  "private": true,
+  "dependencies": {
+    "tangere": "TangereJs/tangere#master",
+    "at-doc-viewer": "TangereJs/at-doc-viewer#master",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#master",
+    "iron-icon": "PolymerElements/iron-icon#master",
+    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#master",
+    "paper-styles": "TangereJs/paper-styles#master"
+  }
+}
