@@ -5,9 +5,9 @@
   "dependencies": {
     "tangere": "TangereJs/tangere#master",
     "at-doc-viewer": "TangereJs/at-doc-viewer#master",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#master",
-    "iron-icon": "PolymerElements/iron-icon#master",
-    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#master",
-    "paper-styles": "TangereJs/paper-styles#master"
+    "paper-styles": "TangereJs/paper-styles#master",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#^1.0.0"
   }
 }
