@@ -1,8 +1,8 @@
 language: node_js
 sudo: required
 before_script:
-  - npm install -g web-component-tester
   - npm install -g polymer-cli
+  - polymer install --variants
 env:
   global:
     - secure: >-
@@ -19,5 +19,8 @@ addons:
       - google-chrome-stable
   sauce_connect: true
 script:
-  - xvfb-run wct
+  - xvfb-run polymer test
+  - >-
+    if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test -s 'default';
+    fi
 dist: trusty
