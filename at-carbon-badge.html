@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../tangere/tangere.html" />
-<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../at-carbon-icon/at-carbon-icon.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../paper-styles/default-theme.html">
@@ -76,9 +76,9 @@ The following custom properties and mixins are available for styling:
         display: none !important;
       }
 
-      iron-icon {
-        --iron-icon-width: 12px;
-        --iron-icon-height: 12px;
+      at-carbon-icon {
+        --icon-width: 12px;
+        --icon-height: 12px;
       }
 
       .badge {
@@ -91,18 +91,22 @@ The following custom properties and mixins are available for styling:
         border-radius: 50%;
         margin-left: var(--at-carbon-badge-margin-left, 0px);
         margin-bottom: var(--at-carbon-badge-margin-bottom, 0px);
-        width: var(--at-carbon-badge-width, 20px);
-        height: var(--at-carbon-badge-height, 20px);
+        min-width: var(--at-carbon-badge-width, 20px);
+        min-height: var(--at-carbon-badge-height, 20px);
         background-color: var(--at-carbon-badge-background, var(--accent-color));
         opacity: var(--at-carbon-badge-opacity, 1.0);
         color: var(--at-carbon-badge-text-color, white);
 
         @apply --at-carbon-badge;
       }
+      
+      #badge-text {
+        padding: 0 4px;
+      }
     </style>
 
     <div id="badgeContainer" class="badge" hidden$="[[!label]]">
-      <iron-icon hidden$="{{!_computeIsIconBadge(icon)}}" icon="{{icon}}"></iron-icon>
+      <at-carbon-icon hidden$="{{!_computeIsIconBadge(icon)}}" icon="{{icon}}"></at-carbon-icon>
       <span id="badge-text" hidden$="{{_computeIsIconBadge(icon)}}">{{label}}</span>
     </div>
   </template>
