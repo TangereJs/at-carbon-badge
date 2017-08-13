@@ -275,7 +275,7 @@ The following custom properties and mixins are available for styling:
 
         this.style.left = xOffset + targetRect.left - parentRect.left +
             (targetRect.width - thisRect.width / 2) + 'px';
-        this.style.top = targetRect.top - yOffset - parentRect.top -
+        this.style.top = targetRect.top + yOffset - parentRect.top -
             (thisRect.height / 2) + 'px';
       }
     });
