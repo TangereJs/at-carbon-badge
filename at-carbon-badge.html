@@ -160,12 +160,14 @@ The following custom properties and mixins are available for styling:
 
         xOffset: {
           type: Number,
-          value: 0
+          value: 0,
+          observer: 'updatePosition'
         },
 
         yOffset: {
           type: Number,
-          value: 0
+          value: 0,
+          observer: 'updatePosition'
         },        
 
         color: {
