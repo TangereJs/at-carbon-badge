@@ -10,7 +10,7 @@
 corner of an element, representing a status or a notification. It will badge
 the anchor element specified in the `for` attribute, or, if that doesn't exist,
 centered to the parent node containing it.
-  
+
 Badges can also contain an icon by adding the `icon` attribute and setting
 it to the id of the desired icon. Please note that you should still set the
 `label` attribute in order to keep the element accessible. Also note that you will need to import
@@ -36,14 +36,14 @@ for more information on how to import and use icon sets.
 ### Styling
 
 The following custom properties and mixins are available for styling:
-  
+
 | Custom property | Description | Default|
 |----------------|-------------|----------|
 |`--at-carbon-badge-background` | The background color of the badge | `--accent-color` |
 |`--at-carbon-badge-opacity` | The opacity of the badge | `1.0` |
 |`--at-carbon-badge-text-color` | The color of the badge text | `white` |
-|`--at-carbon-badge-width` | The width of the badge circle | `20px` | 
-|`--at-carbon-badge-height` | The height of the badge circle | `20px` | 
+|`--at-carbon-badge-width` | The width of the badge circle | `20px` |
+|`--at-carbon-badge-height` | The height of the badge circle | `20px` |
 |`--at-carbon-badge-margin-left` | Optional spacing added to the left of the badge. | `0px` |
 |`--at-carbon-badge-margin-bottom` | Optional spacing added to the bottom of the badge. | `0px` |
 |`--at-carbon-badge` | Mixin applied to the badge | `{}` |
@@ -76,7 +76,6 @@ The following custom properties and mixins are available for styling:
         @apply --layout;
         @apply --layout-center-center;
         @apply --paper-font-common-base;
-
         font-weight: normal;
         font-size: 11px;
         border-radius: 14px;
@@ -94,7 +93,6 @@ The following custom properties and mixins are available for styling:
       #badge-text {
         padding: 0 4px;
       }
-
     </style>
 
     <div id="badgeContainer" class="badge" hidden$="[[!label]]">
@@ -168,35 +166,48 @@ The following custom properties and mixins are available for styling:
           observer: '_colorChanged'
         },
 
+        position: {
+          type: String,
+          value: "",
+          xtype: "enum",
+          xvaluelist: [{
+            title: "Default",
+            value: ""
+          }, {
+            title: "relative",
+            value: "relative"
+          }]
+        },
+
         _boundNotifyResize: {
           type: Function,
-          value: function() {
+          value: function () {
             return this.notifyResize.bind(this);
           }
         },
 
         _boundUpdateTarget: {
           type: Function,
-          value: function() {
+          value: function () {
             return this._updateTarget.bind(this);
           }
         }
       },
 
-      attached: function() {
+      attached: function () {
         // Polymer 2.x does not have this.offsetParent defined by attached
         requestAnimationFrame(this._boundUpdateTarget);
 
         this.toggleAttribute('hidden', !this.label, this.$.badgeContainer);
       },
 
-      attributeChanged: function(name) {
+      attributeChanged: function (name) {
         if (name === 'hidden') {
           this.updatePosition();
         }
       },
 
-      _forChanged: function() {
+      _forChanged: function () {
         // The first time the property is set is before the badge is attached,
         // which means we're not ready to position it yet.
         if (!this.isAttached) {
@@ -205,23 +216,24 @@ The following custom properties and mixins are available for styling:
         this._updateTarget();
       },
 
-      _labelChanged: function() {
+      _labelChanged: function () {
         this.setAttribute('aria-label', this.label);
-        this.async(function() {
-          this.updatePosition(); // label width midght have changed 
+        this.async(function () {
+          this.updatePosition(); // label width midght have changed
         }, 10);
+        this.updatePosition();
       },
 
-      _updateTarget: function() {
+      _updateTarget: function () {
         this._target = this.target;
         requestAnimationFrame(this._boundNotifyResize);
       },
 
-      _computeIsIconBadge: function(icon) {
+      _computeIsIconBadge: function (icon) {
         return icon.length > 0;
       },
 
-      _colorChanged: function(newValue, oldValue) {
+      _colorChanged: function (newValue, oldValue) {
         this.$.badgeContainer.style.backgroundColor = newValue;
       },
 
@@ -255,30 +267,29 @@ The following custom properties and mixins are available for styling:
        * might have changed (for example, if it's visibility has changed, or
        * you've manually done a page re-layout).
        */
-      updatePosition: function() {
-        if (!this._target || !this.offsetParent) {
-          return;
-        }
+      updatePosition: function () {
+
+        if (this.position != "relative" && (!this._target || !this.offsetParent)) return;
 
         var xOffset = parseInt(this.xOffset);
         xOffset = isNaN(xOffset) ? 0 : xOffset;
         var yOffset = parseInt(this.yOffset);
         yOffset = isNaN(yOffset) ? 0 : yOffset;
 
-        var parentRect = this.offsetParent.getBoundingClientRect();
-        var targetRect = this._target.getBoundingClientRect();
-        var ts = getComputedStyle(this._target);
-        var thisRect = this.getBoundingClientRect();
-        
+        if (this.position == "relative") {
 
-        if(!this.for) console.warn("for= attribute is missing");
-        
-        if (xOffset == 0 && yOffset == 0 && this.for) {
-          // new auto position
-          this.style.left = targetRect.left + targetRect.width - parseFloat(ts.getPropertyValue('margin-right')) - parseFloat(ts.getPropertyValue('padding-right')) - ( thisRect.width / 4) + 'px';
-          this.style.top = targetRect.top + parseFloat(ts.getPropertyValue('margin-top')) + parseFloat(ts.getPropertyValue('padding-top')) - (thisRect.height / 2) + 'px';
+          this.style.position = "relative";
+          this.style.left = this.xOffset + "px";
+          this.style.top = this.yOffset + "px";
+
         } else {
           // old position with offset
+
+          var parentRect = this.offsetParent.getBoundingClientRect();
+          var targetRect = this._target.getBoundingClientRect();
+          var ts = getComputedStyle(this._target);
+          var thisRect = this.getBoundingClientRect();
+
           this.style.left = xOffset + targetRect.left - parentRect.left + (targetRect.width - thisRect.width / 2) + 'px';
           this.style.top = targetRect.top - yOffset - parentRect.top - (thisRect.height / 2) + 'px';
         }

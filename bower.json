@@ -1,6 +1,6 @@
 {
   "name": "at-carbon-button",
-  "version": "1.0.0.0",
+  "version": "1.0.0.13",
   "private": true,
   "dependencies": {
     "tangere": "TangereJs/tangere#master",
